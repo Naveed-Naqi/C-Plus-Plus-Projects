@@ -1,3 +1,3 @@
-# C Plus Plus - Projects
+# Cool Questions
 
-Contains any personal projects I did in C++ that are not Project Euler questions
+Any cool questions I come across that I think are interesting and want to try
