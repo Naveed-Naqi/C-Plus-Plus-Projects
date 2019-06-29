@@ -50,28 +50,62 @@ class Solution
 public:
     int romanToInt(std::string s) 
     {
-        std::unordered_map<std::string, double> numeral_map;
+        std::unordered_map<char, int> numeral_map;
         intializeNumeralMap(numeral_map);
 
-        int number = 0;
+        int total = 0;
 
-        for(int i = 0; i < s.length(); i ++)
+        for(int i = 0; i < s.length(); i++)
         {
-            number += numeral_map[std::string(1, s[i])];   
+            int curr_num = numeral_map[s[i]];
+
+            if(i == s.length()-1) total += curr_num;
+            else
+            {
+                int next_num = numeral_map[s[i+1]];
+
+                if(specialCase(curr_num, next_num))
+                {
+                    total += (next_num - curr_num);
+                    i++;
+                }
+                else
+                {
+                    total += curr_num;
+                }
+
+                       
+            }
         }
 
-        return number;
+        return total;
     }
 
-    void intializeNumeralMap(std::unordered_map<std::string, double> &numeral_map)
+    bool specialCase(int curr_num, int next_num)
     {
-        numeral_map["I"] = 1;
-        numeral_map["V"] = 5;
-        numeral_map["X"] = 10;
-        numeral_map["L"] = 50;
-        numeral_map["C"] = 100;
-        numeral_map["D"] = 500;
-        numeral_map["M"] = 1000;
+        return isPowerOfTen(curr_num) && areSameOrderOfMagnitude(curr_num, next_num) && next_num > curr_num;
+    }
+
+    bool isPowerOfTen(int curr_num)
+    {
+        int power = log10(curr_num);
+        return curr_num == pow(10, power);
+    }
+
+    bool areSameOrderOfMagnitude(int curr_num, int next_num)
+    {
+        return ((int)log10(curr_num) - (int)log10(next_num)) < 2;
+    }
+
+    void intializeNumeralMap(std::unordered_map<char, int> &numeral_map)
+    {
+        numeral_map['I'] = 1;
+        numeral_map['V'] = 5;
+        numeral_map['X'] = 10;
+        numeral_map['L'] = 50;
+        numeral_map['C'] = 100;
+        numeral_map['D'] = 500;
+        numeral_map['M'] = 1000;
     }
 };
 
