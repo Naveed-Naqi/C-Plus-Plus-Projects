@@ -38,9 +38,27 @@ class Solution
 public:
     Solution()
     {
-        map['('] == ')';
-        map['{'] == '}';
-        map['['] == ']';
+        map[')'] = '(';
+        map['}'] = '{';
+        map[']'] = '[';
+    }
+    bool isOpeningBrace(char curr_letter)
+    {
+        for (std::pair <char, char> element : map)
+	    {
+            if(curr_letter == element.second) { return true; }
+	    }
+
+        return false;
+    }
+    bool isClosingBrace(char curr_letter)
+    {
+        for (std::pair <char, char> element : map)
+	    {
+            if(curr_letter == element.first) { return true; }
+	    }
+
+        return false;
     }
     bool isValid(std::string s) 
     {
@@ -48,16 +66,24 @@ public:
 
         for(int i = 0; i < s.length(); i++)
         {
-
-            auto iterator = map.find(s[i]);
-
-            if(iterator != map.end())
+            if(isOpeningBrace(s[i])) { my_stack.push(s[i]); }
+            
+            else if(isClosingBrace(s[i]))
             {
-                my_stack.push(s[i]);
-            }
+                if(my_stack.empty()) { return false; }
+
+                else
+                {
+                    char opening_brace = my_stack.top();
+
+                    if(opening_brace != map[s[i]]) { return false; }
+
+                    my_stack.pop();
+                }
+            }  
         }
 
-        return true;
+        return my_stack.empty() ? true : false;
 
     }
 private:
@@ -68,7 +94,7 @@ private:
 int main()
 {
     Solution solution;
-    std::string test = "({})";
+    std::string test = "({()}asdad";
 
     solution.isValid(test) ? std::cout << "Y" : std::cout << "N";
     return 0;
