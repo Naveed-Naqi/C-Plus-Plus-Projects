@@ -30,43 +30,32 @@ public:
     ListNode* CreateFirstNode(ListNode*& l1_traversal, ListNode*& l2_traversal) {
 
         ListNode* first_node;
-
-        if(l1_traversal == nullptr && l2_traversal != nullptr) {
-            first_node = new ListNode(l2_traversal->val);
-        }
-        else if (l1_traversal != nullptr && l2_traversal == nullptr) { 
-            first_node = new ListNode(l1_traversal->val);
-        }
-        else if(l1_traversal != nullptr && l2_traversal != nullptr) {
             
-            if (l1_traversal->val < l2_traversal->val) {
-                first_node = new ListNode(l1_traversal->val);
-                l1_traversal = l1_traversal->next;
-            }
-            else {
-                first_node = new ListNode(l2_traversal->val);
-                l2_traversal = l2_traversal->next;
-            }            
-        }        
+        if (l1_traversal->val < l2_traversal->val) {
+            first_node = new ListNode(l1_traversal->val);
+            l1_traversal = l1_traversal->next;
+        }
+        else {
+            first_node = new ListNode(l2_traversal->val);
+            l2_traversal = l2_traversal->next;
+        }                    
 
         return first_node;
     }
 
-    void AddRemainingElements(ListNode*& l1_traversal, ListNode*& l2_traversal, ListNode*& sorted_list_traversal) {
+    void AddRemainingElements(ListNode*& l1, ListNode*& l2, ListNode*& sorted_list_traversal) {
 
-        if(l1_traversal == nullptr) {
-
-            while(l2_traversal != nullptr) {
-                sorted_list_traversal->next = new ListNode(l2_traversal->val);
-                l2_traversal = l2_traversal->next;
+        if(l1 == nullptr) {
+            while(l2 != nullptr) {
+                sorted_list_traversal->next = l2;
+                l2 = l2->next;
                 sorted_list_traversal = sorted_list_traversal->next;
             }
         }
         else {
-
-            while(l1_traversal != nullptr) {
-                sorted_list_traversal->next = new ListNode(l1_traversal->val);
-                l1_traversal = l1_traversal->next;
+            while(l1 != nullptr) {
+                sorted_list_traversal->next = l1;
+                l1 = l1->next;
                 sorted_list_traversal = sorted_list_traversal->next;
             }
         }
@@ -116,31 +105,28 @@ public:
 
     ListNode* MergeListsAlternative(ListNode* l1, ListNode* l2) {
 
-        ListNode* dummy = new ListNode(-1);
-        ListNode* l3 = dummy; 
-        
-        if(l1==NULL) return l2;
-        if(l2==NULL) return l1;
-        
-        while(l1 && l2) {
+        if(l1 == nullptr) { return l2; }
+        if(l2 == nullptr) { return l1; }
 
-            if(l1->val>l2->val) {
+        ListNode* traversal_ptr = CreateFirstNode(l1, l2);
+        ListNode* sorted_head_ptr = traversal_ptr;
 
-                l3->next = l2;
-                l2= l2->next;
+        while(l1 != nullptr && l2 != nullptr) {
+
+            if (l1->val < l2->val) {
+                traversal_ptr->next = l1;
+                l1 = l1->next;
             }
             else {
-                l3->next = l1;
-                l1=l1->next;
+                traversal_ptr->next = l2;
+                l2 = l2->next;
             }
-            
-            l3 = l3->next;
+            traversal_ptr = traversal_ptr->next;   
         }
-        
-        if(!l1){l3->next=l2;}
-        else {l3->next=l1;}
-        
-        return dummy->next;
+
+        AddRemainingElements(l1, l2, traversal_ptr);
+
+        return sorted_head_ptr;
     }
 };
 
