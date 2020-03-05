@@ -31,11 +31,17 @@ one, then we return false. This sounds feasibly but a little complicate to
 implement because we are going to need to account for a bunch of different
 scenarios.
 
+Time: O(NlogN)
+Space: O(1)
+
 Second Approach: 2 Hash Tables
 Put the two strings into a hashmap to keep track of the characters and number of
 occurences, then compare the two hashmaps. This sounds like it will work and it
 seems less complicated to code than our initial approach. If feels like we can
 still optimize it though.
+
+Time: O(N)
+Space: O(N)
 
 Third Approach: 1 Hash Table
 After thinking a little more about the problem, using two hashtables seemes
@@ -46,6 +52,9 @@ character across both strings in a hashtable, there MUST BE a single
 character that has an odd nunber of occurences if the difference of string
 lengths is 1. Otherwise, if the difference in string lengths is 0, then there
 MUST BE 2 letters that have one odd occurence. Let's implement this solution.
+
+Time: O(N)
+Space: O(N)
 */
 
 void populateMap(unordered_map<char, int> &map, string arr[], int size) {
@@ -93,12 +102,17 @@ bool oneAwayOneHashTable(string a, string b) {
 }
 
 /*
+
+Fourth Approach: Bitset
 We can further optimize the amount of space this function takes up by using a
 bitset instead of hash table. We can do this because we don't actually care
 about the numbere of occurences of each charatcer, we just care about whether
 they are even or odd. This is a nice optimization to bring up in an interview.
 However, it doesn't change the time or space complxity but it is strictly
 better in terms of number of bits that the solution will take up.
+
+Time: O(N)
+Space: O(N)
 */
 
 bool oneAwayOneBitVector(string a, string b) {
@@ -140,8 +154,11 @@ bool oneAwayOneBitVector(string a, string b) {
 }
 
 /*
-Perhaps it is possible to implement a one pass solution, or without an external
-data structure.
+Fifth Apprach: No external DS
+Provided by the book
+
+Time: O(N)
+Space: O(1)
 */
 
 bool oneEditReplace(string a, string b) {
@@ -204,7 +221,7 @@ merge them into one function or keep them separate. You can argue that it is
 more readable if kept separate, but merging them into one funcion is better from
 a code duplication perspective.
 
-This last implemntation(which was provided by the book), is very similar to the
+This last implemntation, is very similar to the
 initial approach I had with regards to sorting the strings and parsing through
 them. I gave up on that appraoch a little bit too quickly. If I had thought
 about it a little bit moe I would have been able to coem to the same conclusion
@@ -221,10 +238,15 @@ single step of the algorithm andmake sure that every step is neccesary or
 providing value.
 
 A good way to optimize is to try and solve the problem in constant space.
+However, there is usually some tradeoff when optimizing for space and that is a
+good thing to discuss with your interviewer before even attempting a solution
+like that. However, inn this case, there is no real tradeoff, doing it in
+constant space is strictly better
 
 Bitsets are cool and useful for decreasing the number of bits a solution
 takes up, although they don't have any effect on the time or space compelxity of
 a solution.
+
 */
 
 int main() {
