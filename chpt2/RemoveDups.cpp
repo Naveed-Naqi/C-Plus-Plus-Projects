@@ -32,7 +32,6 @@ void printList(ListNode* head_ptr) {
   }
 }
 
-
 void removeDups(ListNode*& head_ptr) {
 
   unordered_map<int, bool> map;
