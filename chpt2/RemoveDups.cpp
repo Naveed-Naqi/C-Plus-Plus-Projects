@@ -18,9 +18,9 @@ I would loop through the entire linked list and populate a hashmap to record dis
 If i come across a value in the list that already exists in the hashmap, I will remove the 
 */
 
-struct ListNode {
+struct ListNode{
   int val;
-  ListNode *next;
+  ListNode*next;
   ListNode(int x) : val(x), next(nullptr) {}
 };
 

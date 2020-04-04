@@ -2,21 +2,21 @@
 using namespace std;
 
 /*
-Delete Middle Node: Implement an algorithm to delete a node in the middle (Le., any node but
+Delete Middle Node: Implement an algorithm to delete a ListNodein the middle (Le., any ListNodebut
 the first and last node, not necessarily the exact middle) of a singly linked list, given only access to
 that node.
 EXAMPLE
-Input: the node c from the linked list a - >b- >c - >d - >e- >f
+Input: the ListNodec from the linked list a - >b- >c - >d - >e- >f
 Result: nothing is returned, but the new linked list looks like a->b->d->e->f 
 
 Approach: Iterative
 
-Find the middle node by having a fast ptr and a slow ptr. The fast ptr moves twice as fast as the slow ptr.
+Find the middle ListNodeby having a fast ptr and a slow ptr. The fast ptr moves twice as fast as the slow ptr.
 */
 
-struct ListNode {
+struct ListNode{
   int val;
-  ListNode *next;
+  ListNode*next;
   ListNode(int x) : val(x), next(nullptr) {}
 };
 

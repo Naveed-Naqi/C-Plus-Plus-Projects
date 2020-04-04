@@ -14,9 +14,9 @@ Then iterate a slow ptr (which starts at the head) along with the fast ptr.
 By the time the fast ptr reaches the last element, the slow ptr will be pointing to the kth last element.
 */
 
-struct ListNode {
+struct ListNode{
   int val;
-  ListNode *next;
+  ListNode*next;
   ListNode(int x) : val(x), next(nullptr) {}
 };
 
