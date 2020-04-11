@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 #include <unordered_map>
 using namespace std;
 
@@ -18,15 +18,15 @@ I would loop through the entire linked list and populate a hashmap to record dis
 If i come across a value in the list that already exists in the hashmap, I will remove the 
 */
 
-struct ListNode{
+struct ListNode {
   int val;
-  ListNode*next;
+  ListNode* next;
   ListNode(int x) : val(x), next(nullptr) {}
 };
 
 void printList(ListNode* head_ptr) {
 
-  while(head_ptr != nullptr) {
+  while (head_ptr != nullptr) {
     cout << head_ptr->val << "\t";
     head_ptr = head_ptr->next;
   }
@@ -36,20 +36,22 @@ void removeDups(ListNode*& head_ptr) {
 
   unordered_map<int, bool> map;
 
-  if(head_ptr == nullptr) { return; }
+  if (head_ptr == nullptr) {
+    return;
+  }
   map[head_ptr->val] = true;
 
   ListNode* slow_ptr = head_ptr;
-  ListNode* fast_ptr = head_ptr->next ;
+  ListNode* fast_ptr = head_ptr->next;
 
-  while(fast_ptr != nullptr) {
-    if(map[fast_ptr->val]) {
+  while (fast_ptr != nullptr) {
+    if (map[fast_ptr->val]) {
       slow_ptr->next = fast_ptr->next;
       fast_ptr = nullptr;
       delete fast_ptr;
 
       fast_ptr = slow_ptr->next;
-      
+
     } else {
       map[fast_ptr->val] = true;
 
@@ -62,19 +64,21 @@ void removeDups(ListNode*& head_ptr) {
 }
 
 ListNode* removeDupsSorted(ListNode* head_ptr) {
-  if(head_ptr == nullptr) { return nullptr; }
+  if (head_ptr == nullptr) {
+    return nullptr;
+  }
 
   ListNode* slow_ptr = head_ptr;
-  ListNode* fast_ptr = head_ptr->next ;
+  ListNode* fast_ptr = head_ptr->next;
 
-  while(fast_ptr != nullptr) {
-    if(slow_ptr->val == fast_ptr->val) {
+  while (fast_ptr != nullptr) {
+    if (slow_ptr->val == fast_ptr->val) {
       slow_ptr->next = fast_ptr->next;
       fast_ptr = nullptr;
       delete fast_ptr;
 
       fast_ptr = slow_ptr->next;
-      
+
     } else {
 
       fast_ptr = fast_ptr->next;
@@ -94,7 +98,7 @@ int main() {
   ListNode* head_ptr = new ListNode(arr[0]);
   ListNode* trav_ptr = head_ptr;
 
-  for(int i = 1; i < 7; ++i) {
+  for (int i = 1; i < 7; ++i) {
     ListNode* temp_ptr = new ListNode(arr[i]);
     trav_ptr->next = temp_ptr;
     trav_ptr = trav_ptr->next;

@@ -14,9 +14,9 @@ Then iterate a slow ptr (which starts at the head) along with the fast ptr.
 By the time the fast ptr reaches the last element, the slow ptr will be pointing to the kth last element.
 */
 
-struct ListNode{
+struct ListNode {
   int val;
-  ListNode*next;
+  ListNode* next;
   ListNode(int x) : val(x), next(nullptr) {}
 };
 
@@ -25,12 +25,14 @@ ListNode* kthLast(ListNode* head_ptr, int k) {
   ListNode* fast_ptr = head_ptr;
   ListNode* slow_ptr = head_ptr;
 
-  for(int i = 1; i < k; ++i) {
-    if(fast_ptr == nullptr) { return nullptr; }
+  for (int i = 1; i < k; ++i) {
+    if (fast_ptr == nullptr) {
+      return nullptr;
+    }
     fast_ptr = fast_ptr->next;
   }
 
-  while(fast_ptr->next != nullptr) {
+  while (fast_ptr->next != nullptr) {
     fast_ptr = fast_ptr->next;
     slow_ptr = slow_ptr->next;
   }
@@ -46,9 +48,8 @@ int main() {
   ListNode* head_ptr = new ListNode(arr[0]);
   ListNode* trav_ptr = head_ptr;
 
-  for(int i = 1; i < 7; ++i) {
-    ListNode* temp_ptr = new ListNode(arr[i]);
-    trav_ptr->next = temp_ptr;
+  for (int i = 1; i < 7; ++i) {
+    trav_ptr->next = new ListNode(arr[i]);
     trav_ptr = trav_ptr->next;
   }
 

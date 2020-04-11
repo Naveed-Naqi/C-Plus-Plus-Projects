@@ -14,15 +14,15 @@ Approach: Iterative
 Find the middle ListNodeby having a fast ptr and a slow ptr. The fast ptr moves twice as fast as the slow ptr.
 */
 
-struct ListNode{
+struct ListNode {
   int val;
-  ListNode*next;
+  ListNode* next;
   ListNode(int x) : val(x), next(nullptr) {}
 };
 
 void printList(ListNode* head_ptr) {
 
-  while(head_ptr != nullptr) {
+  while (head_ptr != nullptr) {
     cout << head_ptr->val << "\t";
     head_ptr = head_ptr->next;
   }
@@ -30,19 +30,21 @@ void printList(ListNode* head_ptr) {
 
 void deleteMiddleNode(ListNode*& head) {
 
-  if(head == nullptr) { return; }
+  if (head == nullptr) {
+    return;
+  }
 
-  if(head->next == nullptr) {
+  if (head->next == nullptr) {
     head = nullptr;
     delete head;
-    return; 
+    return;
   }
 
   ListNode* fast = head;
   ListNode* slow = head;
   ListNode* helper = head;
 
-  while(fast->next != nullptr && fast->next->next != nullptr) {
+  while (fast->next != nullptr && fast->next->next != nullptr) {
     fast = fast->next->next;
     helper = slow;
     slow = slow->next;
@@ -63,7 +65,7 @@ int main() {
   ListNode* head_ptr = new ListNode(arr[0]);
   ListNode* trav_ptr = head_ptr;
 
-  for(int i = 1; i < 7; ++i) {
+  for (int i = 1; i < 7; ++i) {
     ListNode* temp_ptr = new ListNode(arr[i]);
     trav_ptr->next = temp_ptr;
     trav_ptr = trav_ptr->next;

@@ -18,15 +18,15 @@ We can iterate through both lists and just add the numbers.
 We will have to have a boolean that keeps track of whether or not there is a carry from one step to the other
 */
 
-struct ListNode{
+struct ListNode {
   int val;
-  ListNode*next;
+  ListNode* next;
   ListNode(int x) : val(x), next(nullptr) {}
 };
 
 void printList(ListNode* head_ptr) {
 
-  while(head_ptr != nullptr) {
+  while (head_ptr != nullptr) {
     cout << head_ptr->val << "\t";
     head_ptr = head_ptr->next;
   }
@@ -35,9 +35,9 @@ void printList(ListNode* head_ptr) {
 }
 
 void addRest(ListNode* result, ListNode* listToAdd) {
-  while(listToAdd) {
+  while (listToAdd) {
     result->next = listToAdd;
-    result=result->next;
+    result = result->next;
   }
 }
 
@@ -46,20 +46,11 @@ ListNode* sumListsReverse(ListNode* l1, ListNode* l2) {
   ListNode* result = nullptr;
   ListNode* result_head = nullptr;
 
-  while(l1 && l2) {
-    int val = l1->val + l2->val;
-    int carry = val % 10 == 1;
-    cout << val << "\n";
+  while (l1 && l2) {
+    cout << l1->val << "\t" << l2->val << "\n";
     l1 = l1->next;
     l2 = l2->next;
   }
-
-  // if(l1) {
-  //   addRest(result, l1);
-  // } else if(l2) {
-  //   addRest(result, l2);
-  // }
-  result->next = nullptr;
 
   return result_head;
 }
@@ -71,7 +62,7 @@ int main() {
   ListNode* head1 = new ListNode(arr[0]);
   ListNode* trav = head1;
 
-  for(int i = 1; i < 3; ++i) {
+  for (int i = 1; i < 3; ++i) {
     ListNode* temp = new ListNode(arr[i]);
     trav->next = temp;
     trav = trav->next;
@@ -80,16 +71,15 @@ int main() {
   ListNode* head2 = new ListNode(arr[2]);
   trav = head2;
 
-  for(int i = 1; i >=0; --i) {
+  for (int i = 1; i >= 0; --i) {
     trav->next = new ListNode(arr[i]);
     trav = trav->next;
   }
 
   printList(head1);
   printList(head2);
-  
+
   ListNode* result = sumListsReverse(head1, head2);
-  printList(result);
 
   return 0;
 }
