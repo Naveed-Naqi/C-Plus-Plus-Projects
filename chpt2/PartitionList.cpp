@@ -22,6 +22,12 @@ Second Approach: Stable
 
 Very similar to the above approach, except we will need 2 pointers to track the right list instead of just one. We need one pointer to keep track of the front and 
 one to keep track of the back. Also, we add elements to the back of the right list instead of the front. 
+
+Other edge cases that I did not orginally think about were what happens when the first or second list is null. 
+I might need to write many if statements that account for this kind of situation, or go weith a different implementation of my appraoch entirely.
+
+I have learned a valuable lesson about being very acutely aware of edge cases in which case stuff is empty and how best to deal with it. 
+I should conduct more extensive testing with my solutions or run them through leetcode in the future in order to get a better bearing on how these solutions may be broken.
 */
 
 struct ListNode {
@@ -40,88 +46,48 @@ void printList(ListNode* head_ptr) {
   cout << "\n";
 }
 
-ListNode* partitionListUnstable(ListNode* head, int partition) {
-  ListNode* left = nullptr;
-  ListNode* left_head = nullptr;
-  ListNode* right = nullptr;
+ListNode* partitionListStable(ListNode* head, int x) {
+  ListNode* left_head = new ListNode(0);
+  ListNode* left = left_head;
+  ListNode* right_head = new ListNode(0);
+  ListNode* right = right_head;
+
+  if (!head || !head->next) {
+    return head;
+  }
 
   while (head) {
-
-    if (head->val >= partition) {
-      ListNode* temp = new ListNode(head->val);
-      temp->next = right;
-      right = temp;
+    if (head->val < x) {
+      left->next = head;
+      left = left->next;
     } else {
-
-      if (!left_head) {
-        left = new ListNode(head->val);
-        left_head = left;
-        left_head->next = left;
-      } else {
-        left->next = new ListNode(head->val);
-        left = left->next;
-      }
+      right->next = head;
+      right = right->next;
     }
 
     head = head->next;
   }
 
-  left->next = right;
+  right->next = nullptr;
+  left->next = right_head->next;
 
-  return left_head;
-}
-
-ListNode* partitionListStable(ListNode* head, int partition) {
-  ListNode* left = nullptr;
-  ListNode* left_head = nullptr;
-  ListNode* right = nullptr;
-  ListNode* right_head = nullptr;
-
-  while (head) {
-
-    if (head->val >= partition) {
-      if (!right_head) {
-        right = new ListNode(head->val);
-        right_head = right;
-        right_head->next = right;
-      } else {
-        right->next = new ListNode(head->val);
-        right = right->next;
-      }
-    } else {
-
-      if (!left_head) {
-        left = new ListNode(head->val);
-        left_head = left;
-        left_head->next = left;
-      } else {
-        left->next = new ListNode(head->val);
-        left = left->next;
-      }
-    }
-
-    head = head->next;
-  }
-
-  left->next = right_head;
-
-  return left_head;
+  return left_head->next;
 }
 
 int main() {
 
-  int arr[7] = {3, 5, 8, 6, 113, 2, 1};
+  int arr[7] = {1, 2};
 
   ListNode* head = new ListNode(arr[0]);
   ListNode* trav = head;
 
-  for (int i = 1; i < 7; ++i) {
+  for (int i = 1; i < 2; ++i) {
     ListNode* temp = new ListNode(arr[i]);
     trav->next = temp;
     trav = trav->next;
   }
 
-  ListNode* partitioned_list = partitionListStable(head, 5);
+  ListNode* partitioned_list = partitionListStable(head, 2);
   printList(partitioned_list);
 
   return 0;
