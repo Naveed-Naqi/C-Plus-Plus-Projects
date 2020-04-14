@@ -1,5 +1,4 @@
 BreakBeforeBraces: Attach
-AllowShortIfStatementsOnASingleLine: true
-IndentCaseLabels: false
+AllowShortIfStatementsOnASingleLine: Always
 ColumnLimit: 0
 PointerAlignment: Left
